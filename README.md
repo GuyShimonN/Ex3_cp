@@ -1,4 +1,1 @@
-# Ex3_cp
-# Ex3_cp
-# Ex3_cp
-# Ex3_cp
+# Ex3_cp - C Assignment
