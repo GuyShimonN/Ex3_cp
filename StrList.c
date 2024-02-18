@@ -1,6 +1,8 @@
 #include <stdlib.h>
 #include<StrList.h>
 #include<stdio.h>
+#include<string.h>
+
 
 
 
@@ -76,7 +78,7 @@ void StrList_insertLast(StrList* StrLis,const char* data){
     }
     Node*  p4 =Node_alloc(*data,NULL);
     p2 ->_next =p4;
-    StrList->_size++;
+    StrLis->_size++;
 	}
 }
 
@@ -84,29 +86,101 @@ void StrList_insertLast(StrList* StrLis,const char* data){
 void StrList_insertAt(StrList* StrList,const char* data,int index){
     if (index>StrList->_size){
           printf("eror\n");
-        return -1; 
+        return; 
+    }
+    if (index==0){
+        StrList_insertFirst(StrList,*data);
+    }
+    Node* p1= StrList->_head;
+	Node* p2;
+    for (int i=0;i<index;i++){
+    p2= p1;
+		p1= p1->_next;
+        }
+        p2->_next =Node_alloc(data,p1);
+        StrList->_size++;
+    
+
+}
+void StrList_insertFirst(StrList* list,char* data){
+	list->_head= Node_alloc(data,list->_head);
+	++(list->_size);
+}
+
+
+char* StrList_firstData(const StrList* StrList){
+    return StrList->_head->_data;
+}
+
+
+void StrList_print(const StrList* StrList){
+    Node* p1 = StrList->_head;
+    for(int i=0;i<StrList->_size;i++){
+        printf("%s ",p1->_data);
+        p1=p1->_next;
     }
 
+}
 
+void StrList_printAt(const StrList* Strlist,int index){
+    if (index>=Strlist->_size){
+        printf("index out of bouns");
+        return;
     }
+     Node* p1 = Strlist->_head;
+    for (int i = 0; i < index; i++)
+    {
+       p1 =p1->_next; 
+    }
+    printf("%s ",p1->_data);
+}
+
+int StrList_printLen(const StrList* Strlist){
+    int x=0;
+    Node* p1 = Strlist->_head;
+   for(int i=0;i<Strlist->_size;i++){
+      x+= strlen(p1->_data);
+        p1=p1->_next;
+    }
+}
 
 
-char* StrList_firstData(const StrList* StrList);
+int StrList_count(StrList* StrList, const char* data){
+       int y,x=0;
+    Node* p1 = StrList->_head;
+   for(int i=0;i<StrList->_size;i++){
+     x= strcmp(data,p1->_data);
+     if (x!=0){
+        y++;
+     }
+        p1=p1->_next;
+    }
+    return y;
+}
 
 
-void StrList_print(const StrList* StrList);
+void StrList_remove(StrList* StrList, const char* data){
+    int x=0;
+      Node* p1 = StrList->_head;
+      Node* p2=p1;
+      if (strcmp(data,p1->_data)){
+        StrList->_head=p1->_next;
+        p1=p1->_next;
+        p2=StrList->_head;
+        StrList->_size--;
+      }
+   for(int i=0;i<StrList->_size;i++){
+    p1=p1->_next
+     x= strcmp(data,p1->_data);
+     if (x!=0){
+        if (p1->_next!=NULL){
+            p2=p1;
+            
+        }
+     }
+}
 
-void StrList_printAt(const StrList* Strlist,int index);
-
-int StrList_printLen(const StrList* Strlist);
-
-
-int StrList_count(StrList* StrList, const char* data);
-
-
-void StrList_remove(StrList* StrList, const char* data);
-
-
+}
 void StrList_removeAt(StrList* StrList, int index);
 
 int StrList_isEqual(const StrList* StrList1, const StrList* StrList2);
