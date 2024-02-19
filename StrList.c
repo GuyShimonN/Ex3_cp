@@ -15,6 +15,8 @@ typedef struct  _Node{
     Node* _head;
     size_t _size;
     }StrList,_StrList;
+
+
 StrList* StrList_alloc(){
 	StrList* p= (StrList*)malloc(sizeof(StrList));
     if (p == NULL){
@@ -25,6 +27,7 @@ StrList* StrList_alloc(){
 	p->_size= 0;
 	return p;
 }
+
     Node* Node_alloc(char data,Node* next) {
 	Node* p= (Node*)malloc(sizeof(Node));
     if (p==NULL){
@@ -35,6 +38,7 @@ StrList* StrList_alloc(){
 	p->_next= next;
 	return p;
 }
+
 void StrList_free(StrList* StrList){
     	if (StrList==NULL) return;
 	Node* p1= StrList->_head;
@@ -290,7 +294,52 @@ void StrList_reverse( StrList* StrList){
     
     
 }
+int comp( const char* a,const char* b){
+    return strcmp(*a,*b);
+}
 
-void StrList_sort( StrList* StrList);
+void StrList_sort( StrList* StrList){
+       Node* head = StrList->_head;
+       char** arr = (char**)malloc(sizeof(char*)*StrList->_size);
+        if (arr==NULL)return;
+        int i=0;
+    while (head!=NULL)
+    {
+        arr[i]= (char*)malloc(strlen(head->_data)+1);
+        if (arr[0]==NULL){
+            for (int j = 0; j < i; j++)
+            {
+               free(arr[j]);
+            }
+            free(arr);
+            return;
+            }
+        strcpy(arr[i],head->_data);
+        head=head->_next;
+        i++;      
+    }
+    qsort(arr,i,sizeof(char*),comp);
+     head = StrList->_head;
+    while (head!=NULL)
+    {
+        strcpy(head->_data,arr[i]);
+        i--;
+        head=head->_next;
+      
+    }
+    for (int j = 0; j < StrList->_size; j++)
+            {
+               free(arr[j]);
+            }
+    free(arr);
 
-int StrList_isSorted(StrList* StrList);
+}
+
+int StrList_isSorted(StrList* StrList){
+    _StrList* h = StrList_alloc();
+    h=StrList_clone(StrList);
+    StrList_sort(StrList);
+    int i = StrList_isEqual(StrList,h);
+    StrList_free(h);
+    return i;
+}
