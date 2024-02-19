@@ -16,17 +16,23 @@
 /*
  * StrList represents a StrList data structure.
  */
+// struct  _Node;
+// typedef struct  _Node;
 struct _StrList;
 typedef struct _StrList StrList;
+
+
 
 /*
  * Allocates a new empty StrList.
  * It's the user responsibility to free it with StrList_free.
  */
 StrList* StrList_alloc();
-Node* Node_alloc(char data,Node* next);//this is me!!!
-void Node_free(Node* StrList);
-void StrList_insertFirst(StrList* list,char* data);
+//this is me!!
+// Node* Node_alloc(char data,Node* next);
+// void Node_free(Node* StrList);
+// void StrList_insertFirst(StrList* list,char data);
+// int comp( const char* a,const char* b);
 /*
  * Frees the memory and resources allocated to StrList.
  * If StrList==NULL does nothing (same as free).
@@ -103,7 +109,7 @@ StrList* StrList_clone(const StrList* StrList);
 void StrList_reverse( StrList* StrList);
 
 /*
- * Sort the given list in lexicographical order 
+ * Sort the given list in lexicographical order
  */
 void StrList_sort( StrList* StrList);
 

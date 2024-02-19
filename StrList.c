@@ -1,14 +1,15 @@
 #include <stdlib.h>
-#include<StrList.h>
+#include"StrList.h"
 #include<stdio.h>
 #include<string.h>
 
 
 
 
+
 typedef struct  _Node{
     char* _data;
-    struct _node * _next;
+    struct _Node * _next;
     } Node;
 
  typedef struct _StrList {
@@ -28,16 +29,20 @@ StrList* StrList_alloc(){
 	return p;
 }
 
-    Node* Node_alloc(char data,Node* next) {
+   Node* Node_alloc(const char* data, Node* next) {
 	Node* p= (Node*)malloc(sizeof(Node));
     if (p==NULL){
         printf("eror\n");
         return NULL; 
     }
-	p-> _data= data;
-	p->_next= next;
+	p-> _data=(char*)data;
+	p->_next=next;
 	return p;
 }
+void Node_free(Node* Node){
+    free(Node->_data);
+    free(Node); 
+    }
 
 void StrList_free(StrList* StrList){
     	if (StrList==NULL) return;
@@ -50,16 +55,9 @@ void StrList_free(StrList* StrList){
 	}
 	free(StrList);
 }
-
-
-void Node_free(Node* Node){
-    free(Node->_data);
-    free(Node);
-    
-    }
-
-    
+ 
 size_t StrList_size(const StrList* StrList){
+
     return StrList ->_size;
 }
 
@@ -67,8 +65,8 @@ size_t StrList_size(const StrList* StrList){
 
 void StrList_insertLast(StrList* StrLis,const char* data){
       	if (StrLis==NULL) {
-          StrList* pp = StrList_alloc();
-          Node*  p4 =Node_alloc(*data,NULL);
+            
+          Node*  p4 =Node_alloc(data,NULL);
           StrLis ->_head =p4;
           StrLis->_size=1;
         }
@@ -80,20 +78,23 @@ void StrList_insertLast(StrList* StrLis,const char* data){
 		p1= p1->_next;
 		
     }
-    Node*  p4 =Node_alloc(*data,NULL);
+    Node*  p4 =Node_alloc(data,NULL);
     p2 ->_next =p4;
     StrLis->_size++;
 	}
 }
-
+void StrList_insertFirst(StrList* list,const char* data){
+	list->_head= Node_alloc(data,list->_head);
+	++(list->_size);
+}
 
 void StrList_insertAt(StrList* StrList,const char* data,int index){
     if (index>StrList->_size){
           printf("eror\n");
-        return; 
+        return;
     }
     if (index==0){
-        StrList_insertFirst(StrList,*data);
+        StrList_insertFirst(StrList,data);
     }
     Node* p1= StrList->_head;
 	Node* p2;
@@ -106,10 +107,7 @@ void StrList_insertAt(StrList* StrList,const char* data,int index){
     
 
 }
-void StrList_insertFirst(StrList* list,char data){
-	list->_head= Node_alloc(data,list->_head);
-	++(list->_size);
-}
+
 
 
 char* StrList_firstData(const StrList* StrList){
@@ -139,16 +137,15 @@ void StrList_printAt(const StrList* Strlist,int index){
     printf("%s ",p1->_data);
 }
 
-int StrList_printLen(const StrList* Strlist){
-    int x=0;
+int StrList_printLen(const StrList* Strlist) {
+    int x = 0;
     Node* p1 = Strlist->_head;
-   for(int i=0;i<Strlist->_size;i++){
-      x+= strlen(p1->_data);
-        p1=p1->_next;
+    for (int i = 0; i < Strlist->_size; i++) {
+        x += strlen(p1->_data);
+        p1 = p1->_next;
     }
+    return x;
 }
-
-
 int StrList_count(StrList* StrList, const char* data){
        int y,x=0;
     Node* p1 = StrList->_head;
@@ -294,8 +291,10 @@ void StrList_reverse( StrList* StrList){
     
     
 }
-int comp( const char* a,const char* b){
-    return strcmp(*a,*b);
+int comp(const void *a, const void *b) {
+    const char *str_a = *(const char **)a;
+    const char *str_b = *(const char **)b;
+    return strcmp(str_a, str_b);
 }
 
 void StrList_sort( StrList* StrList){
