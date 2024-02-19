@@ -24,7 +24,9 @@ typedef struct _StrList StrList;
  * It's the user responsibility to free it with StrList_free.
  */
 StrList* StrList_alloc();
-
+Node* Node_alloc(char data,Node* next);//this is me!!!
+void Node_free(Node* StrList);
+void StrList_insertFirst(StrList* list,char* data);
 /*
  * Frees the memory and resources allocated to StrList.
  * If StrList==NULL does nothing (same as free).
