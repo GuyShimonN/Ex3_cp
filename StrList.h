@@ -28,10 +28,11 @@ typedef struct _StrList StrList;
  * It's the user responsibility to free it with StrList_free.
  */
 StrList* StrList_alloc();
+void StrList_free1(StrList* StrList);
 //this is me!!
 // Node* Node_alloc(char data,Node* next);
 // void Node_free(Node* StrList);
-// void StrList_insertFirst(StrList* list,char data);
+void StrList_insertFirst(StrList* list,const char* data);
 // int comp( const char* a,const char* b);
 /*
  * Frees the memory and resources allocated to StrList.
