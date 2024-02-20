@@ -3,6 +3,7 @@
 #include "StrList.h"
 #define false 0
 #define true 1
+#define size_word 21
 int main() {
     int number = 0;
     scanf("%d", &number);
@@ -15,7 +16,7 @@ int main() {
             scanf("%d", &temp);
             for (int i = 0; i < temp; i++) {
                 
-                char *data = (char *)malloc(sizeof(char) * 21);
+                char *data = (char *)malloc(sizeof(char) * size_word);
                 scanf("%s", data);
                 StrList_insertLast(list, data);
             }
@@ -70,6 +71,6 @@ int main() {
         }
         scanf("%d", &number); // Read next number for the next iteration
     }
-    free(list);
+    StrList_free(list);
     return 0;
 }
