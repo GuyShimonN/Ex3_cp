@@ -3,7 +3,7 @@ CC=gcc
 FLAGS=-Wall -g
 
 MAIN_FILES= StrList.o  Main.o
-STRLIST_FILES= StrList.c  StrList.h
+STRLIST_FILES= StrList.c  StrList.h 
 
 all: StrList
 

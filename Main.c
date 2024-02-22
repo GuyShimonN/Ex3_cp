@@ -62,9 +62,9 @@ int main() {
             StrList_sort(list);
         } else if (number == 13) {
             if (StrList_isSorted(list)) {
-                printf("true \n");
+                printf("true\n");
             } else {
-                printf("false \n");
+                printf("false\n");
             }
             // int i =StrList_isSorted(list);
             // printf("%d",i);

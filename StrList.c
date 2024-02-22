@@ -142,10 +142,14 @@ void StrList_print(const StrList* StrList) {
     }
     Node* p1 = StrList->_head;
     while (p1 != NULL) {
-        printf("%s ", p1->_data);
+        if (p1->_next==NULL){
+            printf("%s", p1->_data);
+        }
+        else{
+        printf("%s ", p1->_data);}
         p1 = p1->_next;
-    }
-    printf("\n");
+    } 
+   printf("\n");
 }
 
 void StrList_printAt(const StrList* StrList, int index) {
@@ -187,6 +191,10 @@ int StrList_count(StrList* StrList, const char* data) {
 }
 
 void StrList_remove(StrList* StrList, const char* data) {
+    if (StrList->_size==0){
+        return;
+    }
+    else{
     Node* current = StrList->_head;
     Node* previous = NULL;
     while (current != NULL) {
@@ -206,8 +214,10 @@ void StrList_remove(StrList* StrList, const char* data) {
             current = current->_next;
         }
     }
+    }
 }
 void StrList_removeAt(StrList* StrList, int index){
+    if (StrList!=NULL){
     if (index<0)return;
     Node* current = StrList->_head;
     Node* previous = NULL;
@@ -226,10 +236,14 @@ void StrList_removeAt(StrList* StrList, int index){
         StrList->_size--;
     }
     Node_free(current);
-  
+    }
 }
 
 int StrList_isEqual(const StrList* StrList1, const StrList* StrList2) {
+    if (StrList1==NULL&&StrList2==NULL)return 1;
+    if ((StrList1==NULL || StrList2==NULL))return 0;
+    
+    
     Node* p1 = StrList1->_head;
     Node* p2 = StrList2->_head;
     while (p1 != NULL && p2 != NULL) {
